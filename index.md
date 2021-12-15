@@ -1,5 +1,5 @@
 # Computational Intelligence
-- Course : **Computational Intelligence (EE25-729 at [Shatif University of Technology](https://en.sharif.edu/))**
+- Course : **EE25-729 at [Sharif University of Technology](https://en.sharif.edu/)**
 - Instructor   : [Sepideh Hajipour](http://sharif.edu/~hajipour/)
 - Assistant    : [Pooria Ashrafian](https://pooria90.github.io/)
 
@@ -7,7 +7,7 @@ This page contains the material of my tutorial classes on basic Python programmi
 
 ## A gentle intro to Python
 
-## What we need for prepreprocessing: `numpy`
+## What we need for prepreprocessing: `numpy` and `sklearn`
 
 ## Visiualizations: Intro to `matplotlib`
 
