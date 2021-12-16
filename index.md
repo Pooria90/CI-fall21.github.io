@@ -10,14 +10,14 @@ This page accompanies the class material of EE25-729 course at [the Sharif Unive
 
 ## Visiualizations: Intro to `matplotlib`
 For our visualizations, `matplotlib.pyplot` is all we need. Let's import the module and set up figure and axes.
-```Python
+```python
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
 ```
 `plt.subplots()` is a function that returns a tuple containing a figure and axes object(s). `fig` is useful for saving what we have drawn using `ax`. 
 Now I draw a sine wave to show how `ax` works.
-```Python
+```python
 import numpy as np
 
 t = np.linspace(0, 1, 100)
