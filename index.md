@@ -1,9 +1,8 @@
 # Computational Intelligence
-- Course : **EE25-729 at [Sharif University of Technology](https://en.sharif.edu/)**
 - Instructor   : [Sepideh Hajipour](http://sharif.edu/~hajipour/)
 - Assistant    : [Pooria Ashrafian](https://pooria90.github.io/)
 
-This page contains the material of my tutorial classes on basic Python programming, neural networks, and genetic algorithms in Python. Feel free to write any comments to [my email](pooria.ashrafian@gmail.com).
+This page accompanies the class material of EE25-729 course at [the Sharif University of Technology](https://en.sharif.edu/). Feel free to write your questions/comments to [my email](pooria.ashrafian@gmail.com).
 
 ## A gentle intro to Python
 
