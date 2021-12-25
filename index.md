@@ -6,6 +6,33 @@ This page accompanies the class material of EE25-729 course at [the Sharif Unive
 
 ## A gentle intro to Python
 
+
+
+### Variables
+
+- `int` : 5, 0, -2, 12, ...
+- `float` : 0.0, -1.5, 3.1415, ...
+- `str` : 'Pooria99', "Sepideh", 'Hello World!', "1+2=3", ...
+- `bool` : True, False, 1+2>0,  5+6==15, ...
+
+
+
+### Operators
+
+- _Arithmetic_: + , - , * , / , ** (power) , // (integer division) , % (mod)
+- _Comparison_: > , < , >= , <= , == , !=
+- _Assignment_: = , += , -= , *= , /= , **= , //= , %=
+- _Logical_: and , or , not
+- _Membership_: in , not in
+
+
+
+### Input/Output
+
+
+
+
+
 ## What we need for preprocessing: `numpy` and `sklearn`
 
 ## Visualizations: Intro to `matplotlib`
