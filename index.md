@@ -6,36 +6,158 @@ This page accompanies the class material of EE25-729 course at [the Sharif Unive
 
 ## A gentle intro to Python
 
+Python was developed in the early 90's by Guido van Rossum at the National Research Institute for Mathematics and Computer Science in the Netherlands. 
 
+Python is designed to be highly readable. It uses English keywords frequently, and it has fewer syntactical constructions than other languages.
 
-### Variables
+- **Python is interpreted**: You don't need to compile your code. It is processed at runtime like MATLAB.
+- **Python is interactive**: You can use command prompt and interact with the interpreter, like command line in MATLAB.
+- **Python is object-oriented**: You can define custom classes and objects, and use inheritance from parent classes.
 
-- `int` : 5, 0, -2, 12, ...
-- `float` : 0.0, -1.5, 3.1415, ...
-- `str` : 'Pooria99', "Sepideh", 'Hello World!', "1+2=3", ...
-- `bool` : True, False, 1+2>0,  5+6==15, ...
-
-
-
-### Operators
-
-- _Arithmetic_: + , - , * , / , ** (power) , // (integer division) , % (mod)
-- _Comparison_: > , < , >= , <= , == , !=
-- _Assignment_: = , += , -= , *= , /= , **= , //= , %=
-- _Logical_: and , or , not
-- _Membership_: in , not in
+You can download a suitable version from [python.org](https://www.python.org). 
 
 
 
-### Input/Output
+### Writing Python
+
+To run Python codes, you may either write your code in a Python script (`.py` format) or a Python notebook (`.ipynb` format).
+
+For writing Python scripts you can either use the default Python editor in Python standard library, **IDLE**, or any other editor for this purpose like **VS Code** or **PyCharm**.
+
+Notebooks provide you with the the capability called **cell**. You can add several cells in a notebook and run each cell separately. You can either install **Jupyter notebook** after installing Python, or use Colab notebooks at [colab.research.google.com](https://colab.research.google.com/). The benefit of using Colab is that you have access to many preinstalled Python packages.
 
 
 
+### Installing a Python package
+
+After you successfully installed Python and set up Python path, you can open your command prompt and install additional packages by using `pip`. For example, in order to install Jupyter notebook you can run:
+
+```shell
+pip install jupyter-notebook
+```
 
 
-## What we need for preprocessing: `numpy` and `sklearn`
 
-## Visualizations: Intro to `matplotlib`
+### Python shell
+
+From now on, you can use scripts, notebooks, or even command prompt to run code. At the beginning, I strongly recommend you to write some statements in Python shell for getting used to it. Python shell is an enviornment where you can run single Python statements and see the result in place. Type `python` in your command prompt and press `enter`. The Python shell opens like this:
+
+```shell
+C:\Users\Asus>python
+Python 3.8.3 (tags/v3.8.3:6f8c832, May 13 2020, 22:20:19) [MSC v.1925 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+```
+
+Try to interact with the interpreter. Two basic functions to try are `print` and `type`. With the former you can show a variable to the user, and by using the latter you can use data type (or *class*) of a variable. An example of playing with the shell can be like the following box. As you may notice, `#` is used to define single-line comments in Python. The interpreter ignores everything after `#`.
+
+```shell
+>>> print ('Hello World!') # Strings can be defined by '' or "".
+Hello World!
+>>> x = 216
+>>> print (x)
+216
+>>> type(x) # x is integer because it is define without a floating point
+<class 'int'>
+>>> y = 12.56 # y is floating point number
+>>> type(y)
+<class 'float'>
+```
+
+To define a variable, you may use lower or upper case letters, or underscore.
+
+```shell
+>>> family_name = 'Ashrafian'
+>>> print (family_name)
+Ashrafian
+>>> type(family_name) # it is a string (str) variable
+<class 'str'>
+>>> Course = 'Computational Intelligence'
+>>> print (Course)
+Computational Intelligence
+```
+
+
+
+### Data types
+
+**Numbers**: You have already seen integer and float numbers. In the following example you get familiar with arithmetic and assignment operators.
+
+```python
+x = 12					# = is assignment operator; As you have seen in C or MATLAB
+print (type (x)) 		# prints <class 'int'>
+print (x + 2) 			# prints 14
+print (x - 3) 			# prints 9
+print (x / 4)			# prints 3.0; / is float division. It means the result is a float
+print (type (x))		# prints <class 'float'>
+print (x // 5)			# prints 2; // is the integer division, or so called 'quotient'
+print (x ** 2)  		# prints 144; ** is the power operation
+x += 3					# now x is 15
+print (x)				# prints 15
+x -= 1					# now x is 14
+print (x)				# prints 14
+x *= 3					# now x is 42
+print (x)				# prints 42
+x **= 2					# what do you think?
+print (x)
+```
+
+
+
+**Booleans**: They can be either `True` or `False`. Logical operators (`and`, `or`, `not`) and comparison (`==`, `>`, `>=`, `!=` (not equal), ...) operators work on them.
+
+```python
+x = True
+print (type (x))				# prints <class 'bool'>
+print (not x)					# prints False
+y = 15
+print (y > 5)					# prints True
+p = y > 5
+print (type (p))				# prints <class 'bool'>
+print (y == 12)					# prints False
+print ((y > 3) and (y < 10))	# prints False; because one of them is False
+print ((y > 3) or (y != 10))	# prints True; because one of them is Ture
+```
+
+
+
+**Strings**: We said that they are either defined by single quote (`''`) or double quote (`""`).
+
+```python
+s1 = 'computational'
+s2 = 'intelligence'
+L1 = len (s1)					# len counts the number of characters
+print (L1)						# 13 characters; yeah?
+print (s1 + s2)					# prints computationalintelligence (+ for str = concat)
+s_cat = s1 + ' ' + s2
+print (s_cat)					# prints computational intelligence
+print (f'hello from {s_cat}')	# You see that f and {}? Those are for formatted output
+# above line prints hello from computational intelligence
+```
+
+Strings have useful methods. Wait...What is a method?
+
+- Method is a function. However, unlike the functions that `print` and `len` that we have already seen, it is defined for its object. So, without defining a string, there is **no string method**. Methods are applied using a `.` after the variable. For example:
+
+```python
+s = 'Pooria'
+print(s.upper())		# makes everything uppercase: 'POORIA'
+print(s.lower())		# makes everything lowercase: 'pooria'
+s = 'i am pooria'
+print(s.capitalize())	# make first letter capital: 'I am...
+print(s.split())		# splits s into a list of words: ['i', 'am', 'pooria']
+print(s.find('p'))		# finds the index of 'p' by starting from zero; prints 5
+```
+
+For a complete list refer to Python documentations in [here](https://docs.python.org/3/library/stdtypes.html#string-methods).
+
+
+
+## Numerical Python: numpy
+
+
+
+## Visualizations: Intro to matplotlib
 
 For our visualizations, `matplotlib.pyplot` is all we need. Let's import the module and set up figure and axes.
 ```python
@@ -80,9 +202,11 @@ There we go:
 
 
 
-## Let's get to the point: `pytorch`
+## Let's get to the point: pytorch
 
-## A little bit of genetic algorithms: `pyeasyga`
+
+
+## A little bit of genetic algorithms: pyeasyga
 
 
 <!---
