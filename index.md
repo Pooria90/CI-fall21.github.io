@@ -1,6 +1,5 @@
----
-layout: default
----
+# Computational Intelligence
+
 - Instructor   : [Sepideh Hajipour](http://sharif.edu/~hajipour/)
 - Assistant    : [Pooria Ashrafian](https://pooria90.github.io/)
 
