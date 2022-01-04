@@ -84,22 +84,22 @@ Computational Intelligence
 **Numbers**: You have already seen integer and float numbers. In the following example you get familiar with arithmetic and assignment operators.
 
 ```python
-x = 12					  # = is assignment operator; As you have seen in C or MATLAB
-print (type (x))	# prints <class 'int'>
+x = 12  # = is assignment operator; As you have seen in C or MATLAB
+print (type (x))  # prints <class 'int'>
 print (x + 2) 		# prints 14
 print (x - 3) 		# prints 9
 print (x / 4)		  # prints 3.0; / is float division. It means the result is a float
 print (type (x))	# prints <class 'float'>
 print (x // 5)		# prints 2; // is the integer division, or so called 'quotient'
 print (x ** 2)  	# prints 144; ** is the power operation
-x += 3					  # now x is 15
-print (x)				  # prints 15
-x -= 1					  # now x is 14
-print (x)				  # prints 14
-x *= 3					  # now x is 42
-print (x)				  # prints 42
-x **= 2					  # what do you think?
-print (x)
+x += 3
+print (x)   # prints 15
+x -= 1
+print (x)   # prints 14
+x *= 3
+print (x)		# prints 42
+x **= 2
+print (x)   # what do you think?
 ```
 
 
@@ -108,13 +108,13 @@ print (x)
 
 ```python
 x = True
-print (type (x))				      # prints <class 'bool'>
-print (not x)					        # prints False
+print (type (x))  # prints <class 'bool'>
+print (not x)     # prints False
 y = 15
-print (y > 5)					        # prints True
+print (y > 5)     # prints True
 p = y > 5
-print (type (p))				      # prints <class 'bool'>
-print (y == 12)					      # prints False
+print (type (p))  # prints <class 'bool'>
+print (y == 12)		# prints False
 print ((y > 3) and (y < 10))	# prints False; because one of them is False
 print ((y > 3) or (y != 10))	# prints True; because one of them is Ture
 ```
@@ -126,11 +126,11 @@ print ((y > 3) or (y != 10))	# prints True; because one of them is Ture
 ```python
 s1 = 'computational'
 s2 = 'intelligence'
-L1 = len (s1)					        # len counts the number of characters
-print (L1)						        # 13 characters; yeah?
-print (s1 + s2)					      # prints computationalintelligence (+ for str = concat)
+L1 = len (s1)	  # len counts the number of characters
+print (L1)      # 13 characters; yeah?
+print (s1 + s2)	# prints computationalintelligence (+ for str = concat)
 s_cat = s1 + ' ' + s2
-print (s_cat)					        # prints computational intelligence
+print (s_cat)   # prints computational intelligence
 print (f'hello from {s_cat}')	# You see that f and {}? Those are for formatted output; prints hello from computational intelligence
 ```
 
@@ -143,9 +143,9 @@ s = 'Pooria'
 print(s.upper())		  # makes everything uppercase: 'POORIA'
 print(s.lower())		  # makes everything lowercase: 'pooria'
 s = 'i am pooria'
-print(s.capitalize())	# make first letter capital: 'I am...
-print(s.split())		  # splits s into a list of words: ['i', 'am', 'pooria']
-print(s.find('p'))		# finds the index of 'p' by starting from zero; prints 5
+print(s.capitalize()) # make first letter capital: 'I am...
+print(s.split())    # splits s into a list of words: ['i', 'am', 'pooria']
+print(s.find('p'))  # finds the index of 'p' by starting from zero; prints 5
 ```
 
 For a complete list refer to Python documentations in [here](https://docs.python.org/3/library/stdtypes.html#string-methods).
