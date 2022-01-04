@@ -6,6 +6,16 @@ layout: default
 
 This page accompanies the class material of EE25-729 course at [the Sharif University of Technology](https://en.sharif.edu/). Feel free to write your questions/comments to [my email](pooria.ashrafian@gmail.com).
 
+- [A gentle intro to Python](#a-gentle-intro-to-python)
+  * [Writing Python](#writing-python)
+  * [Installing a Python package](#installing-a-python-package)
+  * [Python shell](#python-shell)
+  * [Data types](#data-types)
+- [numpy](#numpy)
+- [matplotlib](#matplotlib)
+- [pytorch](#pytorch)
+- [pyeasyga](#pyeasyga)
+
 ## A gentle intro to Python
 
 Python was developed in the early 90's by Guido van Rossum at the National Research Institute for Mathematics and Computer Science in the Netherlands. 
@@ -166,11 +176,11 @@ For a complete list refer to Python documentations in [here](https://docs.python
 
 
 
-## Numerical Python: numpy
+## numpy
 
 
 
-## Visualizations: Intro to matplotlib
+## matplotlib
 
 For our visualizations, `matplotlib.pyplot` is all we need. Let's import the module and set up figure and axes.
 ```python
@@ -215,11 +225,11 @@ There we go:
 
 
 
-## Let's get to the point: pytorch
+## pytorch
 
 
 
-## A little bit of genetic algorithms: pyeasyga
+## pyeasyga
 
 
 <!---
