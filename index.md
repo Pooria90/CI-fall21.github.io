@@ -381,7 +381,138 @@ for i in range(100):
 # prints 0, 15, ..., 90
 ```
 
+#### While loops
 
+As you already know, while loops are defined using a condition (a *Boolean statement*). The indented statements after the while loop will be executed until the the condition is `True`.
+
+```python
+counter = 0
+while counter < 10:
+    counter += 1
+    print (f'Execution number {counter}')
+# prints Execution number 1, ... , Execution number 10
+```
+
+#### Loop control
+
+You can use `continue` and `break` to control the execution of a loop under certain condition. For example in the following loop ignores multipliers of 3 and prints natural numbers of the forms 3k+1 and 3k+2. When the counter equals 100, the execution ends.
+
+```python
+j = 0
+while True:
+    j += 1
+    if j%3 == 0:
+        continue
+    if j == 100:
+        break
+    print (j)
+    
+# prints 1,2,4,5,...,94,95,97,98
+```
+
+
+
+### Functions
+
+To define a function in Python you can use the following structure using the keyword `def`.
+
+```markdown
+def function_name (input1, input2, ...):
+	statement 1
+	statement 2
+	...
+	return something (or nothing!)
+```
+
+For example the following function checks whether the input is prime or not (you may notice that we don't specify the type of input variable. For checking that the input is correct or not one approach is using the built-in function `isinstance` and the keyword `assert`. Search them!).
+
+```python
+def isprime(n):
+    result = True
+    for i in range(2,n):
+        if n%i == 0:
+            result = False
+            break
+    return result
+
+print (isprime(21)) # prints False
+print (isprime(23)) # prints True
+```
+
+You can also define functions using inputs with default values. In this case if you do not specify the value of those inputs, the function uses the default value when called.
+
+```python
+def devide(a, b=10):
+    return a/b
+
+print (devide(5))  # prints 0.5; uses default value of b
+print (devide(3,4)) # prints 0.75; here b=4
+print (devide(b=50,a=5))  # prints 0.1; note that you can call a function by telling exactly which variable has what value. In this case the order of the inputs doesn't matter.
+```
+
+
+
+### Classes
+
+You have already seen several Python built-in classes like `list` and `dict`. You can define your custom classes. To do so, you should specify the attributes (or variables) and methods of your objects. The general structure is like below:
+
+```markdown
+class class_name ():
+	def __init__(self, input1, input2, ...): (This is the constructor of your objects; tells the Python how to intialize the objects)
+		self.attribute1 = something
+		self.attribute2 = something
+		...
+		statement1
+		statement2
+		...
+	
+	def method1(self, some inputs):
+		some statements
+		
+	def method2(self, some inputs):
+		some statements
+		
+	...
+```
+
+`self` represents the instance of the class. By using the `self` keyword we can access the attributes and methods inside the class to write out statements.
+
+And you can define the object like this:
+
+```markdown
+object = class_name(input1, input2, ...)
+object.attribute1
+object.method1(some inputs)
+```
+
+ Look at the example below. In this example we define a point in 2D space.
+
+```python
+import math
+
+class point():
+    def __init__(self,x,y,name='A'):
+        self.x = x  # height
+        self.y = y  # width
+        self.name = name  # label of the point
+    
+    def distance(self, p): # computes distance from another point
+        d = math.sqrt ( (p.x - self.x)**2 + (p.y - self.y)**2 )
+        return d
+    
+    def norm(self):  # euclidean norm or distance from origin
+        n = math.sqrt (self.x**2 + self.y**2)
+        return n
+
+a = point(x=3,y=4,name='A')
+print (a.x, a.y, a.name)  # prints 3, 4, A
+print (a.norm())  # prints sqrt(3^2+4^2)=5
+
+b = point(x=0,y=4,name='B')
+print (a.distance(b))  # prints 3; a and b in 2D space are 3 units apart
+```
+
+For a complete explanation for classes, check out the [documentations](https://docs.python.org/3.5/tutorial/classes.html)
 
 ## numpy
 
