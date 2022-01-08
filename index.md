@@ -5,15 +5,45 @@
 
 This page accompanies the class material of EE25-729 course at [the Sharif University of Technology](https://en.sharif.edu/). Feel free to write your questions/comments to <pooria.ashrafian@gmail.com>.
 
+
+
+## Table of Contents
+
 - [A gentle intro to Python](#a-gentle-intro-to-python)
   * [Writing Python](#writing-python)
   * [Installing a Python package](#installing-a-python-package)
   * [Python shell](#python-shell)
-  * [Data types](#data-types)
-- [numpy](#numpy)
-- [matplotlib](#matplotlib)
-- [pytorch](#pytorch)
-- [pyeasyga](#pyeasyga)
+  * [Basic data types](#basic-data-types)
+  * [Lists](#lists)
+  * [Tuples](#tuples)
+  * [Dictionaries](#dictionaries)
+  * [Conditional statements](#conditional-statements)
+  * [Loops](#loops)
+    + [For loops](#for-loops)
+    + [While loops](#while-loops)
+    + [Loop control](#loop-control)
+  * [Functions](#functions)
+  * [Classes](#classes)
+- [Numpy](#numpy)
+  * [Array](#array)
+  * [Functions to create arrays](#functions-to-create-arrays)
+  * [Array indexing](#array-indexing)
+    + [Slicing](#slicing)
+    + [Boolean indexing](#boolean-indexing)
+    + [Array operations](#array-operations)
+- [Matplotlib](#matplotlib)
+- [TensorFlow/Keras](#tensorflow-keras)
+  * [Exploring the data](#exploring-the-data)
+  * [Split train and validation dataset](#split-train-and-validation-dataset)
+  * [Converting the labels to one-hot format](#converting-the-labels-to-one-hot-format)
+  * [Building the model](#building-the-model)
+    + [Setting up layers](#setting-up-layers)
+    + [Compiling the model](#compiling-the-model)
+  * [Training the model](#training-the-model)
+- [Pyeasyga](#pyeasyga)
+- [References/Resources](#references-resources)
+
+
 
 ## A gentle intro to Python
 
@@ -676,6 +706,10 @@ print(x.dot(y))
 
 
 
+
+
+
+
 ## Matplotlib
 
 For our visualizations, `matplotlib.pyplot` is all we need. Let's import the module and set up figure and axes.
@@ -721,7 +755,231 @@ There we go:
 
 
 
-## Keras
+## TensorFlow/Keras
+
+**TensorFlow** is a free and open-source software library for machine learning and artificial intelligence. It can be used across a range of tasks but has a particular focus on training and inference of deep neural networks. 
+
+**Keras** is the high-level API of TensorFlow for deep learning applications. Keras makes it much easier than TensorFlow core to define neural networks and train them. Getting familiar with Tensorflow core is highly recommended to understand computational graphs, forward, and backward pass. However, we use Keras for our purposes in this tutorial because TensorFlow core is beyond the outline of this course and it's more suitable for a graduate course in deep learning.
+
+From now on we, walk through an example and take what we need. You can install tensorflow on your computer by running `pip install tensorflow` in your command prompt, or you can simply use colab notebooks. For information regrading TensorFlow installation refer to [this page](https://www.tensorflow.org/install).
+
+For our example we use Fashion-MNIST dataset. This dataset contains 70000 28*28 grayscale images with 10 different labels. Our first step is to take a look at our data.
+
+### Exploring the data
+
+```python
+# import tensorflow and keras
+import tensorflow as tf
+from tensorflow import keras
+
+f_mnist = keras.datasets.fashion_mnist
+(x_train, y_train), (x_test, y_test) = f_mnist.load_data()
+print(x_train.shape, y_train.shape, x_test.shape, y_test.shape) # prints (60000, 28, 28) (60000,) (10000, 28, 28) (10000,)
+```
+
+Since the pixels of a grayscale image are in 0-255 range, we divide the pixels values by 255 for standardization.
+
+```pyth
+x_train, x_test = x_train/255, x_test/255
+```
+
+Now we plot some samples:
+
+```python
+import matplotlib.pyplot as plt
+
+classes = {
+    0: 'T-shirt/top',
+    1: 'Trouser',
+    2: 'Pullover',
+    3: 'Dress',
+    4: 'Coat',
+    5: 'Sandal',
+    6: 'Shirt',
+    7: 'Sneaker',
+    8: 'Bag',
+    9: 'Ankle boot'
+}
+
+fig, ax = plt.subplots(5,5,figsize=(10,10))
+for i in range(5):
+    for j in range(5):
+        ax[i,j].imshow(x_train[5*i+j],cmap=plt.cm.binary)
+        ax[i,j].set_xticks([]) # no numbers on x-axis
+        ax[i,j].set_yticks([]) # no numbers on y-axis
+        ax[i,j].set_xlabel(classes[y_train[5*i+j]])  # put the name of the sample on x-axis
+```
+
+![f_mnist](images/f_mnist.png)
+
+ ### Split train and validation dataset
+
+Assume that we want to randomly choose 20% of the training set as validation set, and use the the rest for training. Here we can do that by two different approches.
+
+**Permutation:** We shuffle the samples using a random permutation, then take the first 80% as training and next 20% as validation.
+
+```python
+import numpy as np
+from math import floor
+
+samples = x_train.shape[0]  # 60000
+perm = np.random.permutation(samples)
+tr_size = floor(0.8*x_train.shape[0])  # 48000
+x_tr = x_train[perm[:tr_size],:,:]
+y_tr = y_train[perm[:tr_size]]
+x_va = x_train[perm[tr_size:],:,:]
+y_va = y_train[perm[tr_size:]]
+print(x_tr.shape, y_tr.shape, x_va.shape, y_va.shape)  # prints (48000, 28, 28) (48000,) (12000, 28, 28) (12000,)
+```
+
+**Sklearn:** We can use `train_test_split` function of `sklearn` library.
+
+```python
+from sklearn.model_selection import train_test_split
+
+x_tr, x_va, y_tr, y_va = train_test_split(x_train,y_train,test_size=0.2)
+print(x_tr.shape, y_tr.shape, x_va.shape, y_va.shape)  # prints (48000, 28, 28) (48000,) (12000, 28, 28) (12000,)
+```
+
+
+
+### Converting the labels to one-hot format
+
+We usually convert our labels to a one-hot vector in order to use MSE or Cross Entropy loss. In one-hot format we convert each labels to a vector with its length equal to the number of classes (10 in here). The vector elements all have zero value except in the position of the label.
+
+```python
+from tensorflow.keras.utils import to_categorical
+
+y_tr_hot = to_categorical(y_tr, num_classes=10)
+y_va_hot = to_categorical(y_va, num_classes=10)
+y_te_hot = to_categorical(y_test, num_classes=10)
+
+print(y_tr_hot.shape, y_va_hot.shape, y_te_hot.shape) # prints (48000, 10) (12000, 10) (10000, 10)
+```
+
+
+
+### Building the model
+
+We define an MLP and train that on `x_tr`.
+
+#### Setting up layers
+
+To define our layers, we use `keras.Sequential`. `keras.Sequential` converts a list of layers into a [`keras.Model`](https://keras.io/api/models/model#model-class).
+
+```python
+# import necessary layers of our model
+from tensorflow.keras.layers import Input, Flatten, Dense, ReLU, Softmax
+
+# defining the model
+model = keras.Sequential([
+    Input(shape=(28,28)),
+    Flatten(), # makes a 784-element vector to use in our MLP
+    Dense(units=256), # our first hidden layer with 256 neurons
+    ReLU(), # ReLU activation at our first hidden layer
+    Dense(units=64), # our second hidden layer with 64 neurons
+    ReLU(), # ReLU activation at second hidden layer
+    Dense(units=10), # classification layer; 10 classes
+    Softmax(axis=1) # converts output of classification neurons to a probablity
+])
+
+model.summary()
+```
+
+By using `model.summary()`, you can see the details of your model layers. Its print an output like below. We have an MLP with hidden size of 256 and 64, and ReLU activations. The `None` keyword in the summary refers to the size of mini-batches.
+
+```markdown
+Model: "sequential_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten_1 (Flatten)         (None, 784)               0         
+                                                                 
+ dense_3 (Dense)             (None, 256)               200960    
+                                                                 
+ re_lu_2 (ReLU)              (None, 256)               0         
+                                                                 
+ dense_4 (Dense)             (None, 64)                16448     
+                                                                 
+ re_lu_3 (ReLU)              (None, 64)                0         
+                                                                 
+ dense_5 (Dense)             (None, 10)                650       
+                                                                 
+ softmax_1 (Softmax)         (None, 10)                0         
+                                                                 
+=================================================================
+Total params: 218,058
+Trainable params: 218,058
+Non-trainable params: 0
+_________________________________________________________________
+```
+
+#### Compiling the model
+
+Now we compile the model to determine optimization method (Stochastic Gradient Descent in here), loss function (Cross Entropy in here), and metrics (accuracy in here).
+
+```python
+model.compile(
+    optimizer = keras.optimizers.SGD(learning_rate=0.001),
+    loss = keras.losses.CategoricalCrossentropy(),
+    metrics = ['accuracy'] # we want to track the accuracy on training and validation sets during training
+)
+```
+
+### Training the model
+
+We fit our model to training data using `fit` method. By calling this method, model will be training using backpropagation and the history of training (involving losses and metrics values) will be return.
+
+```python
+hist = model.fit(
+    x_tr, y_tr_hot, # training data and labels
+    epochs = 50, # number of training iterations
+    batch_size = 200, # size of mini-batches for batched training
+    validation_data = (x_va, y_va_hot)
+)
+```
+
+The last 5 steps of training look something like this:
+
+```markdown
+Epoch 46/50
+240/240 [==============================] - 2s 7ms/step - loss: 0.3745 - accuracy: 0.8608 - val_loss: 0.4656 - val_accuracy: 0.8451
+Epoch 47/50
+240/240 [==============================] - 2s 7ms/step - loss: 0.3721 - accuracy: 0.8638 - val_loss: 0.4634 - val_accuracy: 0.8454
+Epoch 48/50
+240/240 [==============================] - 2s 7ms/step - loss: 0.3713 - accuracy: 0.8630 - val_loss: 0.4655 - val_accuracy: 0.8452
+Epoch 49/50
+240/240 [==============================] - 2s 7ms/step - loss: 0.3688 - accuracy: 0.8646 - val_loss: 0.4646 - val_accuracy: 0.8428
+Epoch 50/50
+240/240 [==============================] - 2s 7ms/step - loss: 0.3662 - accuracy: 0.8648 - val_loss: 0.4618 - val_accuracy: 0.8448
+```
+
+You may plot the training and validation accuarcy:
+
+```python
+print (hist.history.keys()) # prints dict_keys(['loss', 'accuracy', 'val_loss', 'val_accuracy'])
+
+n_epochs = len(hist.history['accuracy'])
+epochs = np.arange(1,n_epochs+1)
+
+fig, ax = plt.subplots()
+ax.plot(epochs, hist.history['accuracy'])
+ax.plot(epochs, hist.history['val_accuracy'])
+ax.set_xlabel('Epoch')
+ax.set_ylabel('Accuracy')
+ax.legend(['Train','Validation'])
+```
+
+![acc](images/acc.png)
+
+Finally you can make predictions on test set.
+
+```python
+y_pred = model.predict(x_test)
+y_pred = np.argmax(y_pred, axis=1)
+acc = np.sum(y_pred==y_test)/y_test.shape[0] * 100
+print(f'Test Accuracy = {acc}') # prints Test Accuracy = 83.5 for me
+```
 
 
 
