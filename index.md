@@ -514,11 +514,169 @@ print (a.distance(b))  # prints 3; a and b in 2D space are 3 units apart
 
 For a complete explanation for classes, check out the [documentations](https://docs.python.org/3.5/tutorial/classes.html)
 
-## numpy
+## Numpy
+
+Numpy is the fundamental library for scientific computing in Python. It provides multi-dimensional arrays and matrices, and the tools for working with them.
+
+### Array
+
+A numpy array is a grid of values, all of the same type (`numpy.array.dtype`), and is indexed by a tuple of nonnegative integers. The number of dimensions is the rank of the array (`numpy.ndarray.ndim`) and the shape of an array is a tuple of integers giving the size of the array along each dimension (`numpy.ndarray.shape`).
+
+We can initialize numpy arrays from nested Python lists, and access elements using square brackets:
+
+```python
+import numpy as np
+
+a = np.array([1,2,3,4,5])
+print (type(a))  # prints <class 'numpy.ndarray'>
+print (a.ndim)   # prints 1; rank of the array
+print (a.shape)  # prints (5,)
+print (a.dtype) # prints int32
+
+print (a[0],a[-1]) # prints 1 5
+a[0] = 3
+print (a)  # prints [3 2 3 4 5]
+
+b = np.array([[1,2,3],[4,5,6]])
+print (b.ndim)   # prints 2
+print (b.shape)  # prints (2,3)
+print (b[0,0], b[1,1], b[0,2], b[1,2]) # prints 1 5 3 6
+```
 
 
 
-## matplotlib
+### Functions to create arrays
+
+There are some useful functions in for making special arrays.
+
+```python
+z = np.zeros((1,3))  # creates array with zero entries with the input tuple shape
+print (z)
+
+o = np.ones((2,2))  # creates array with one entries with the input tuple shape
+print (o)
+
+e = np.eye(3)  # creates identity matrix with number of rows and columns equal to the input integer
+print (e)
+
+r = np.random.random((3,2))  # creates random array with entries between 0-1 with the input shape
+print (r)
+```
+
+For more details check out [array creation](https://numpy.org/doc/stable/user/basics.creation.html) on numpy documentations.
+
+
+
+### Array indexing
+
+#### Slicing
+
+```python
+a = np.reshape(np.arange(16), newshape=(4,4)) # 0 to 15 in 4*4 array form
+
+print (a[:2,1:3])
+'''prints
+[[1 2]
+ [5 6]]
+'''
+
+print (a[2,:]) # third row
+# prints [ 8  9 10 11]
+
+print (a[:,1]) # second column 
+# prints [ 1  5  9 13]
+
+print (a[:,1:2]) # second column as a column!
+'''prints
+[[ 1]
+ [ 5]
+ [ 9]
+ [13]]
+'''
+
+# Look at the two last examples carefully.
+# Accessing data using only an integer (1)
+# yields to an array with lower rank. However,
+# Accessing using slicing (1:2) yields to an array
+# with the same rank.
+```
+
+#### Boolean indexing
+
+Boolean array indexing lets you pick out arbitrary elements of an array. This type of indexing is used to select the elements of an array that satisfy some condition.
+
+```python
+y = np.array([1,2,3,3,1,0,1,3,2,3])
+
+I = (y > 1) 
+print (I)  # prints [False  True  True  True False False False  True  True  True]
+print (y[I])  # prints [2 3 3 3 2 3]
+
+np.set_printoptions(precision=2) # for printing numpy arrays with 2 digits
+S = np.random.random((4,5))
+I = S < 0.3
+print (S)
+print (I)
+print (S[I])
+'''A sample output (it's random!):
+[[0.3  0.39 0.74 0.18 0.11]
+ [0.41 0.03 0.25 0.01 0.65]
+ [0.7  0.86 0.71 0.01 0.49]
+ [0.98 0.6  0.99 0.27 0.93]]
+ 
+[[False False False  True  True]
+ [False  True  True  True False]
+ [False False False  True False]
+ [False False False  True False]]
+ 
+[0.18 0.11 0.03 0.25 0.01 0.01 0.27]'''
+```
+
+#### Array operations
+
+```python
+x = np.array([[1,2],[3,4]])
+y = np.array([[5,6],[7,8]])
+
+print(x + y)
+print(np.add(x, y))
+'''Elementwise sum
+[[ 6  8]
+ [10 12]] '''
+
+print(x - y)
+print(np.subtract(x, y))
+'''Elementwise difference
+[[-4 -4]
+ [-4 -4]] '''
+
+print(x * y)
+print(np.multiply(x, y))
+'''Elementwise product
+[[ 5 12]
+ [21 32]] '''
+
+print(x / y)
+print(np.divide(x, y))
+'''Elementwise division
+[[0.2  0.33]
+ [0.43 0.5 ]] '''
+
+print(np.sqrt(x))
+'''Elementwise square root
+[[1.   1.41]
+ [1.73 2.  ]] '''
+
+print(np.dot(x,y))
+print(x.dot(y))
+'''matrix/vector multiplication
+[[19 22]
+ [43 50]] '''
+```
+
+
+
+## Matplotlib
 
 For our visualizations, `matplotlib.pyplot` is all we need. Let's import the module and set up figure and axes.
 ```python
@@ -563,11 +721,17 @@ There we go:
 
 
 
-## keras
+## Keras
 
 
 
-## pyeasyga
+## Pyeasyga
+
+
+
+## References/Resources
+
+
 
 
 <!---
@@ -598,6 +762,10 @@ Syntax highlighted code block
 ```
 
 For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+
+
+
+
 
 ### Jekyll Themes
 
