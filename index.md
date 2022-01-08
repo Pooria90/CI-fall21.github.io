@@ -3,7 +3,7 @@
 - Instructor   : [Sepideh Hajipour](http://sharif.edu/~hajipour/)
 - Assistant    : [Pooria Ashrafian](https://pooria90.github.io/)
 
-This page accompanies the class material of EE25-729 course at [the Sharif University of Technology](https://en.sharif.edu/). Feel free to write your questions/comments to <pooria.ashrafian@gmail.com>.
+This page accompanies the class material of EE25-729 at [the Sharif University of Technology](https://en.sharif.edu/). Feel free to write your questions/comments to <pooria.ashrafian@gmail.com>.
 
 
 
@@ -32,7 +32,7 @@ This page accompanies the class material of EE25-729 course at [the Sharif Unive
     + [Boolean indexing](#boolean-indexing)
     + [Array operations](#array-operations)
 - [Matplotlib](#matplotlib)
-- [TensorFlow/Keras](#tensorflow-keras)
+- [TensorFlow and Keras](#tensorflow-and-keras)
   * [Exploring the data](#exploring-the-data)
   * [Split train and validation dataset](#split-train-and-validation-dataset)
   * [Converting the labels to one-hot format](#converting-the-labels-to-one-hot-format)
@@ -74,10 +74,10 @@ Notebooks provide you with the the capability called **cell**. You can add sever
 After you successfully installed Python and set up Python path, you can open your command prompt and install additional packages by using `pip`. For example, in order to install Jupyter notebook you can run:
 
 ```shell
-pip install jupyter-notebook
+pip install notebook
 ```
 
-
+Then to run Jupyter notebook enter `jupyter notebook` in your cmd.
 
 ### Python shell
 
@@ -755,7 +755,7 @@ There we go:
 
 
 
-## TensorFlow/Keras
+## TensorFlow and Keras
 
 **TensorFlow** is a free and open-source software library for machine learning and artificial intelligence. It can be used across a range of tasks but has a particular focus on training and inference of deep neural networks. 
 
@@ -991,45 +991,3 @@ print(f'Test Accuracy = {acc}') # prints Test Accuracy = 83.5 for me
 
 
 
-
-<!---
-You can use the [editor on GitHub](https://github.com/CI-fall21/CI-fall21.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-
-
-
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/CI-fall21/CI-fall21.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
---->
