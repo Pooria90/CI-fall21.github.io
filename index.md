@@ -1000,10 +1000,7 @@ A simple implementation of genetic algorithm.
 
 There is the `GeneticAlgorithm` class in the `pyeasyga` module. In this class, we can define fitness, crossover, ... and then run the algorithm by using `run` method.
 
-As an example, assume that we want to maximize the function $f(x)$  on integers in 0 to 1023.
-$$
-f(x) = -\frac{x^2}{10} + 6x
-$$
+As an example, assume that we want to maximize the function $f(x)=-\frac{x^2}{10} + 6x$  on integers in 0 to 1023.
 
 
 ```python
