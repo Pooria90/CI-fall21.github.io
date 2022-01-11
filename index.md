@@ -41,7 +41,6 @@ This page accompanies the class material of EE25-729 at [the Sharif University o
     + [Compiling the model](#compiling-the-model)
   * [Training the model](#training-the-model)
 - [Pyeasyga](#pyeasyga)
-- [References/Resources](#references-resources)
 
 
 
@@ -706,10 +705,6 @@ print(x.dot(y))
 
 
 
-
-
-
-
 ## Matplotlib
 
 For our visualizations, `matplotlib.pyplot` is all we need. Let's import the module and set up figure and axes.
@@ -751,7 +746,22 @@ There we go:
 
 ![sine_2](images/sine_2.png)
 
+You can also define a grid of subplots:
 
+```python
+fig, ax = plt.subplots(2,2)
+for i in range(2):
+    for j in range(2):
+        t = np.linspace(0, 1, 200)
+        f = i*2 + j + 1
+        x = np.sin(2 * np.pi * f * t)
+        ax[i,j].plot(t, x)
+        ax[i,j].set_xlabel('Time')
+        ax[i,j].grid(True)
+plt.show()
+```
+
+![sine_3](Images/sine_3.png)
 
 
 
@@ -968,6 +978,7 @@ ax.plot(epochs, hist.history['val_accuracy'])
 ax.set_xlabel('Epoch')
 ax.set_ylabel('Accuracy')
 ax.legend(['Train','Validation'])
+ax.grid(True)
 ```
 
 ![acc](images/acc.png)
@@ -985,9 +996,51 @@ print(f'Test Accuracy = {acc}') # prints Test Accuracy = 83.5 for me
 
 ## Pyeasyga
 
+A simple implementation of genetic algorithm.
+
+There is the `GeneticAlgorithm` class in the `pyeasyga` module. In this class, we can define fitness, crossover, ... and then run the algorithm by using `run` method.
+
+As an example, assume that we want to maximize the function $f(x)$  on integers in 0 to 1023.
+$$
+f(x) = -\frac{x^2}{10} + 6x
+$$
 
 
-## References/Resources
+```python
+from pyeasyga import pyeasyga
+import random
+
+data = [0]*10 # length of data determines the length of our chromosomes
+ga = pyeasyga.GeneticAlgorithm(data)
+
+ga.population_size = 20 # default value is 50
+ga.generations = 70 # default is 100
+
+def fitness(individual, data=None):
+    # individual: a list of 0 and 1 (chromosome), indicating a candidate solution
+    # data: the length of data determines the length of our chromosomes;
+    # 		in this problem we don't need any additional data, but in a problem such
+    # 		as knapsack problem we need value and weights of objects in the data
+    
+    s = 0
+    for i,b in enumerate(individual):
+        s += b * 2**i # converting binary to decimal
+    f = -s**2/10 + 6*s
+    return f
+
+def crossover(parent1, parent2):
+    # two point crossover
+    points = sorted([random.randint(0,len(parent1)-1) for _ in (1,2)])
+    child1 = parent1[:points[0]] + parent2[points[0]:points[1]] + parent1[points[1]:]
+    child2 = parent2[:points[0]] + parent1[points[0]:points[1]] + parent2[points[1]:]
+    return child1,child2
+
+ga.fitness_function = fitness
+ga.crossover_function = crossover # default is one-point crossover
+
+ga.run()
+print(ga.best_individual()) # prints (90.0, [0, 1, 1, 1, 1, 0, 0, 0, 0, 0]) for me
+```
 
 
 
