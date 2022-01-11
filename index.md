@@ -761,7 +761,7 @@ for i in range(2):
 plt.show()
 ```
 
-![sine_3](Images/sine_3.png)
+![sine_3](images/sine_3.png)
 
 
 
